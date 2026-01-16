@@ -20,3 +20,9 @@ Book.objects.create(
     author = 'Unknown',
     publication_year = 2000
 )
+
+Books.objects.create(
+    title = 'Refactoring',
+    author = 'Fowler',
+    publication_year = 2005
+)
