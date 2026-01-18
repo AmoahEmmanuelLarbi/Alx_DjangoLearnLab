@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #register my app
-    'bookshelf.apps.BookshelfConfig',
+    # 'bookshelf.apps.BookshelfConfig',
     'relationship_app.apps.RelationshipAppConfig',
 ]
 
