@@ -24,8 +24,8 @@ class Library(models.Model):
     name = models.CharField(max_length=100, null=False)
     books = models.ManyToManyField(Book)  # reference book(many->many relationship)
 
-    def __str__(self):
-        return f"{self.name} {len(self.books)} books"
+    # def __str__(self):
+    #     return self.name
 
 # Librarian Model
 class Librarian(models.Model):
