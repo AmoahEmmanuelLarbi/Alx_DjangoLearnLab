@@ -12,7 +12,7 @@ class Author(models.Model):
 
 # Book Model
 class Book(models.Model):
-    title = models.CharField(max_length=100, null=False)
+    title = models.CharField(max_length=100)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)  # reference Author
 
     def __str__(self):
@@ -21,7 +21,7 @@ class Book(models.Model):
 
 # Library Model
 class Library(models.Model):
-    name = models.CharField(max_length=100, null=False)
+    name = models.CharField(max_length=100)
     books = models.ManyToManyField(Book)  # reference book(many->many relationship)
 
     # def __str__(self):
