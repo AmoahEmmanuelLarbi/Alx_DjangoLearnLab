@@ -14,7 +14,10 @@ Book.objects.filter(author_id=1)
 library = Library.objects.create(name="Alx Library")
 library.books.add(book1)
 
-Author.objects.get(author = author)
+author_name = "James Smith"
+#query allbooks by a specific author
+Author.objects.get(name = author_name)
+Author.objects.filter(author = author)
 Library.objects.all()
 
 get_library = Library.objects.filter(name = "Alx Library")
