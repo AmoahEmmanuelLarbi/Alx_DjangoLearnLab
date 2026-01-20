@@ -19,6 +19,10 @@ class Book(models.Model):
         return f"{self.title} by {self.author.name}"
 
 
+# optimized query for ForeignKey
+books = Book.objects.select_related("author").all()
+
+
 # Library Model
 class Library(models.Model):
     name = models.CharField(max_length=100)
@@ -27,7 +31,14 @@ class Library(models.Model):
     # def __str__(self):
     #     return self.name
 
+
+# optimized query for Many-Many
+library_books = Library.objects.prefetch_related("books").all()
+
+
 # Librarian Model
 class Librarian(models.Model):
     name = models.CharField(max_length=100, null=False)
-    library = models.OneToOneField(Library, on_delete=models.CASCADE) #reference Library(one-> one relationship)
+    library = models.OneToOneField(
+        Library, on_delete=models.CASCADE
+    )  # reference Library(one-> one relationship)
