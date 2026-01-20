@@ -8,4 +8,4 @@ author_name = "James Smith"
 Author.objects.get(name=author_name)
 Book.objects.filter(author=author)
 Author.objects.get(name=author_name)
-# objects.filter(author=author)
+objects.filter(author=author)
