@@ -10,6 +10,8 @@ Book.objects.all()
 author = Author.objects.create(name="Jones Acer")
 book1 = Book.objects.create(title="System Design", author=author)
 Book.objects.filter(author_id=1)
+Book.objects.filter(author__name = author)
+Book.objects.filter(author = author)
 
 library = Library.objects.create(name="Alx Library")
 library.books.add(book1)
@@ -60,5 +62,3 @@ def get_librarian_for_library(library_name):
     library = Library.objects.get(name=library_name)
     return library.librarian
 
-
-query_all_books_by_author()
