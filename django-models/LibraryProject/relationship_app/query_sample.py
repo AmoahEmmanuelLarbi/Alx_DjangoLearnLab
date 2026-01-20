@@ -88,4 +88,6 @@ def get_library_librarian(library_name):
     library = Library.objects.get(name=library_name)
     return library.librarian
 
-["Author.objects.get(name=author_name)", "objects.filter(author=author)"]
+def get_books_by_author(author_name):
+    Author.objects.get(name=author_name)
+    return objects.filter(author=author)
