@@ -87,3 +87,5 @@ def get_library_librarian(library_name):
     """
     library = Library.objects.get(name=library_name)
     return library.librarian
+
+["Author.objects.get(name=author_name)", "objects.filter(author=author)"]
