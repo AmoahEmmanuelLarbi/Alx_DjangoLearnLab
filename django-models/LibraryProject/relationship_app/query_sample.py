@@ -10,6 +10,6 @@ Book.objects.filter(author=author)
 Author.objects.get(name=author_name)
 
 Librarian.objects.all().values()
-# Author.objects.filter(author=author)
+Author.objects.filter(author=author)
 
 # ["Author.objects.get(name=author_name)", "objects.filter(author=author)"]
