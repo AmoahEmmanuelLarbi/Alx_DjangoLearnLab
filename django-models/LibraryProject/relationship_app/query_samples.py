@@ -2,8 +2,8 @@ from relationship_app.models import Author, Book, Library, Librarian
 
 library_name = "Alx Library"
 # list all books in the library
-Book.objects.get(name=library_name)
-Book.objects.all()
+Library.objects.get(name=library_name)
+Library.objects.all()
 
 Book.objects.all().values()
 author = Author.objects.create(name = "Kim Joe")
