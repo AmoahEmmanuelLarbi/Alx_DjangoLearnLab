@@ -16,6 +16,7 @@ Book.objects.filter(author=author)
 Author.objects.get(name=author_name)
 
 Librarian.objects.all().values()
+Librarian.objects.get(library="Alx Library")
 
 
 # ["Author.objects.get(name=author_name)", "objects.filter(author=author)"]
