@@ -20,7 +20,7 @@ listing all books available in that library.
 """
 
 
-class ListAllBook(ListView):
+class list_book(ListView):
     model = Book
     template_name = "relationship_app/library_detail.html"
 
@@ -36,6 +36,10 @@ class ListAllBook(ListView):
         context["library_books"] = context["object_list"].values()
         return context
 
+
 class LibraryDetailView(DetailView):
     model = Library
-    template_name = 'relationship_app/demo.html'
+    template_name = "relationship_app/demo.html"
+
+    def get_queryset(self):
+        library = Library.objects.get(self, )
