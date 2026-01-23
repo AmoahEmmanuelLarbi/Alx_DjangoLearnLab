@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Book
 from .models import Library
 from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 
 
 # Create your views here.
@@ -34,3 +35,7 @@ class ListAllBook(ListView):
         context["library"] = Library.objects.get(name__iexact="Alx Library")
         context["library_books"] = context["object_list"].values()
         return context
+
+class LibraryDetailView(DetailView):
+    model = Library
+    template_name = 'relationship_app/demo.html'
