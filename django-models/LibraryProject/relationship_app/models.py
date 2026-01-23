@@ -28,8 +28,8 @@ class Library(models.Model):
     name = models.CharField(max_length=100)
     books = models.ManyToManyField(Book)  # reference book(many->many relationship)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
 
 
 # optimized query for Many-Many
