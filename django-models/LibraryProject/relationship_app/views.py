@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Book, Library
+from .models import Book
+from .models import Library
 from django.views.generic import ListView
 
 
@@ -30,6 +31,6 @@ class ListAllBook(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['library'] = Library.objects.get(name__iexact="Alx Library")
-        context['library_books'] = context['object_list'].values()
+        context["library"] = Library.objects.get(name__iexact="Alx Library")
+        context["library_books"] = context["object_list"].values()
         return context
