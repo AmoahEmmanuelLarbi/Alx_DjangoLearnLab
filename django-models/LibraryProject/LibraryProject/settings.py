@@ -121,3 +121,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 APPEND_SLASH = True
+
+LOGIN_REDIRECT_URL  = 'home'
+LOGOUT_REDIRECT_URL = 'home'
