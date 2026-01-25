@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-
+from django.contrib.auth import login
 
 
 # Create your views here.
@@ -59,7 +59,7 @@ class RegisterView(CreateView):
 
 
 # login class based view
-class LoginView(LoginView):
+class LoginView(login):
     template_name = 'relationship_app/login.html'
 
 # logout class based view
