@@ -7,7 +7,6 @@ from django.views.generic import ListView, CreateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-# from django.contrib.auth import login, authenticate
 
 
 # Create your views here.
