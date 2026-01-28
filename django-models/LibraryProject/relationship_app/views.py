@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 
 
 # Create your views here.
@@ -51,15 +51,32 @@ class LibraryDetailView(DetailView):
             self,
         )
 
+
 # signup class based view
 class register(CreateView):
-    form_class = UserCreationForm()
-    success_url = reverse_lazy('login')
-    template_name = 'relationship_app/register.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "relationship_app/register.html"
 
 
-# login class based view
+# # login class based view
 class LoginView(LoginView):
-    template_name = 'relationship_app/login.html'
+    template_name = "relationship_app/login.html"
+
+    # def login_user(request):
+    #     username = request.POST["username"]
+    #     password = request.POST["password"]
+    #     user = authenticate(request, username=username, password=password)
+
+    #     if user is not None:
+    #         print("logging user in")
+    #     else:
+    #         print("Invalid user")
+
 
 # logout class based view
+
+
+# function-based class home
+def index_page(request):
+    return render(request, "relationship_app/home.html")
