@@ -65,19 +65,19 @@ class register(CreateView):
 
 
 # # login class based view
-class LoginView(LoginView):
-    template_name = "relationship_app/login.html"
+# class LoginView(LoginView):
+#     template_name = "relationship_app/login.html"
 
 
-    # def login_user(request):
-    #     username = request.POST["username"]
-    #     password = request.POST["password"]
-    #     user = authenticate(request, username=username, password=password)
+#     # def login_user(request):
+#     #     username = request.POST["username"]
+#     #     password = request.POST["password"]
+#     #     user = authenticate(request, username=username, password=password)
 
-    #     if user is not None:
-    #         print("logging user in")
-    #     else:
-    #         print("Invalid user")
+#     #     if user is not None:
+#     #         print("logging user in")
+#     #     else:
+#     #         print("Invalid user")
 
 
 # logout class based view

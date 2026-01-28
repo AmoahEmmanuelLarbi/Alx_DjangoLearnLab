@@ -1,8 +1,8 @@
 # app-level urls
 from django.urls import path, include
-from .views import list_books, list_all_books, LibraryDetailView, LoginView
+from .views import list_books, list_all_books, LibraryDetailView
 from . import views
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path("", list_all_books),  # function-based view
@@ -10,7 +10,15 @@ urlpatterns = [
     path("library/<int:pk>", LibraryDetailView.as_view()),
     # new url to register, login and logout user
     path("register/", views.register.as_view(), name="register"),
-    path("login/", LoginView.as_view(), name="login"),
+    path(
+        "login/",
+        LoginView.as_view(template_name="relationship_app\login.html"),
+        name="login",
+    ),
     path("home/", views.index_page, name="home"),
-    path("logout/", LogoutView.as_view(), name="logout"),
+    path(
+        "logout/",
+        LogoutView.as_view(template_name="relationship_app\logout.html"),
+        name="logout",
+    ),
 ]
