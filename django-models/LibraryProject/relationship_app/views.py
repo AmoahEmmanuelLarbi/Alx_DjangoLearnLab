@@ -7,6 +7,7 @@ from django.views.generic import ListView, CreateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from django.contrib.auth import login
 
 
 # Create your views here.
@@ -57,10 +58,16 @@ class register(CreateView):
     success_url = reverse_lazy("login")
     template_name = "relationship_app/register.html"
 
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)
+
 
 # # login class based view
 class LoginView(LoginView):
     template_name = "relationship_app/login.html"
+
 
     # def login_user(request):
     #     username = request.POST["username"]
