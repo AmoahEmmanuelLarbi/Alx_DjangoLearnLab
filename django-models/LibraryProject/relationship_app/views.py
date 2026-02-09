@@ -7,6 +7,7 @@ from django.views.generic import ListView, CreateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import login
 
 
@@ -86,3 +87,31 @@ class register(CreateView):
 # function-based class home
 def index_page(request):
     return render(request, "relationship_app/home.html")
+
+
+# implement set up role-based views
+@permission_required("relationship_app.view_admin", raise_exception=True)
+def admin_view(request):
+
+    context = {"content": "Admin View"}
+    return render(
+        request, template_name="relationship_app/admin_view.html", context=context
+    )
+
+
+@permission_required("relation_app.view_librarian", raise_exception=True)
+def librarian_view(request):
+
+    context = {"content": "Librarian View"}
+    return render(
+        request, template_name="relationship_app/librarian_view.html", context=context
+    )
+
+
+@permission_required("relationship_app.view_member", raise_exception=True)
+def member_view(request):
+
+    context = {"content": "Member View"}
+    return render(
+        request, template_name="relationship_app/member_view.html", context=context
+    )

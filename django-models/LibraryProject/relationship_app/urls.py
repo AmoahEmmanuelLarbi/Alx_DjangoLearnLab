@@ -2,6 +2,7 @@
 from django.urls import path, include
 from .views import list_books, list_all_books, LibraryDetailView
 from . import views
+from . import views
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -21,4 +22,7 @@ urlpatterns = [
         LogoutView.as_view(template_name="relationship_app\logout.html"),
         name="logout",
     ),
+    path("admin-view/", views.admin_view),
+    path("librarian-view/", views.librarian_view),
+    path("member-view/", views.member_view),
 ]
