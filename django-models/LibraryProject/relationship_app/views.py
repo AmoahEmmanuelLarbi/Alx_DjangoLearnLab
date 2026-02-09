@@ -6,8 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import ListView, CreateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.contrib.auth import login
 
 
@@ -89,7 +90,14 @@ def index_page(request):
     return render(request, "relationship_app/home.html")
 
 
+# implement role-based access
+#  check if user exists
+def is_user_created(request):
+    return User.objects.filter(username=request.user.username)
+
+
 # implement set up role-based views
+@user_passes_test(is_user_created)
 @permission_required("relationship_app.view_admin", raise_exception=True)
 def admin_view(request):
 
