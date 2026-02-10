@@ -25,7 +25,7 @@ urlpatterns = [
     path("admin-view/", views.admin_view),
     path("librarian-view/", views.librarian_view),
     path("member-view/", views.member_view),
-    path("create/", views.createBook),
-    path("edit/<int:pk>/", views.editBook, name="edit-book"),
-    path("delete/<int:pk>/", views.deleteBook, name="delete-book"),
+    path("add_book/", views.createBook, name="add-book"),
+    path("edit_book/<int:pk>/", views.editBook, name="edit-book"),
+    path("delete_book/<int:pk>/", views.deleteBook, name="delete-book"),
 ]
