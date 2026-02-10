@@ -1,5 +1,5 @@
 # from django.contrib.admin.forms import UserCreationForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book
 from .models import Library
 from django.contrib.auth.forms import UserCreationForm
@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import permission_required, user_passes_test
 from django.contrib.auth import login
+from .forms import BookForm
 
 
 # Create your views here.
@@ -33,9 +34,9 @@ class list_books(ListView):
 
     def get_queryset(self):
         # return Book.objects.all()
-        library = Library.objects.get(name__iexact="Alx Library")
-        all_books = library.books.all()
-        return all_books
+        # library = Library.objects.get(name__iexact="Alx Library")
+        # all_books = library.books.all()
+        return Book.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -55,15 +56,15 @@ class LibraryDetailView(DetailView):
 
 
 # signup class based view
-class register(CreateView):
-    form_class = UserCreationForm()
-    success_url = reverse_lazy("login")
-    template_name = "relationship_app/register.html"
+# class register(CreateView):
+#     form_class = UserCreationForm()
+#     success_url = reverse_lazy("login")
+#     template_name = "relationship_app/register.html"
 
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         user = form.save()
+#         login(self.request, user)
+#         return super().form_valid(form)
 
 
 # # login class based view
@@ -122,4 +123,48 @@ def member_view(request):
     context = {"content": "Member View"}
     return render(
         request, template_name="relationship_app/member_view.html", context=context
+    )
+
+
+# implement views with custom permission
+
+
+def createBook(request):
+    if request.method == "POST":
+        form = BookForm(request.POST)
+        # check if form input is valid
+        if form.is_valid():
+            form.save()
+            return redirect("all-books")
+    else:
+        form = BookForm()
+
+    return render(request, "relationship_app/book_form.html", {"form": form})
+
+
+def editBook(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)  # current book info
+        if form.is_valid():
+            form.save()
+            return redirect("all-books")
+        else:
+            form = BookForm(instance=book)
+    return render(request, "relationship_app/book_detail.html", {"form": form})
+
+
+def deleteBook(request, pk):
+    # get specific book
+    book = get_object_or_404(Book, pk=pk)
+
+    if request.method == "POST":
+        book.delete()
+        return redirect("all-books")
+
+    return render(
+        request,
+        template_name="relationship_app/delete_book.html",
+        context={"book": book},
     )

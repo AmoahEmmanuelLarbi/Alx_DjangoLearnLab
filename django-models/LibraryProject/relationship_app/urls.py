@@ -7,10 +7,10 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path("", list_all_books),  # function-based view
-    path("allbooks/", list_books.as_view()),
+    path("allbooks/", list_books.as_view(), name="all-books"),
     path("library/<int:pk>", LibraryDetailView.as_view()),
     # new url to register, login and logout user
-    path("register/", views.register.as_view(), name="register"),
+    # path("register/", views.register.as_view(), name="register"),
     path(
         "login/",
         LoginView.as_view(template_name="relationship_app\login.html"),
@@ -25,4 +25,7 @@ urlpatterns = [
     path("admin-view/", views.admin_view),
     path("librarian-view/", views.librarian_view),
     path("member-view/", views.member_view),
+    path("create/", views.createBook),
+    path("edit/<int:pk>/", views.editBook, name="edit-book"),
+    path("delete/<int:pk>/", views.deleteBook, name="delete-book"),
 ]

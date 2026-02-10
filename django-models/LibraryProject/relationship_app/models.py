@@ -19,6 +19,14 @@ class Book(models.Model):
     def __str__(self):
         return f"{self.title} by {self.author.name}"
 
+    class Meta:
+        # custom permissions
+        permissions = [
+            ("can_add_book", "can add new book"),
+            ("can_change_book", "can change new book"),
+            ("can_delete_book", "can delete new book"),
+        ]
+
 
 # optimized query for ForeignKey
 books = Book.objects.select_related("author").all()
@@ -57,6 +65,3 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user
-
-    class Meta():
-        permission = 
