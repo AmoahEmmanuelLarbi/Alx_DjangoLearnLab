@@ -127,8 +127,7 @@ def member_view(request):
 
 
 # implement views with custom permission
-
-
+@permission_required("relationship_app.can_add_book")
 def createBook(request):
     if request.method == "POST":
         form = BookForm(request.POST)
@@ -142,6 +141,7 @@ def createBook(request):
     return render(request, "relationship_app/book_form.html", {"form": form})
 
 
+@permission_required("relationship_app.can_change_book")
 def editBook(request, pk):
     book = get_object_or_404(Book, pk=pk)
 
@@ -155,6 +155,7 @@ def editBook(request, pk):
     return render(request, "relationship_app/book_detail.html", {"form": form})
 
 
+@permission_required("relationship_app.can_delete_book")
 def deleteBook(request, pk):
     # get specific book
     book = get_object_or_404(Book, pk=pk)
