@@ -8,7 +8,7 @@ Custom User Model
 
 
 # custom user manager
-class CustomManager(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     # create a regular user
     def create_user(self, email, username, password, **extra_fields):
         if not email:
@@ -35,6 +35,7 @@ class CustomUser(AbstractUser):
     profile_photo = models.ImageField(
         upload_to="profile_photos/", blank=True, null=True
     )
+    email = models.EmailField(unique=True)
 
     # use custom manager
-    objects = CustomManager()
+    objects = CustomUserManager()
