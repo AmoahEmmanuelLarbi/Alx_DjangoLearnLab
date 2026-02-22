@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 # Create your views here.
-@permission_required("bookshelf.can_view", raise_exception=True)
+@permission_required("book_list.can_view", raise_exception=True)
 def list_all_books(request):
     books = Book.objects.all()
     context = {"books": books}
