@@ -32,10 +32,37 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     # new fields to add
     date_of_birth = models.DateField(null=False, verbose_name="date of birth")
-    profile_photo = models.ImageField(
-        upload_to="profile_photos/", blank=True, null=True
-    )
+    # profile_photo = models.ImageField(
+    #     upload_to="profile_photos/", blank=True, null=True
+    # )
     email = models.EmailField(unique=True)
 
     # use custom manager
     objects = CustomUserManager()
+
+
+class Book(models.Model):
+    # ROLE_CHOICES = (
+    #     ("admin", "Admin"),
+    #     ("editor", "Editor"),
+    #     ("viewer", "Viewer"),
+    # )
+
+    # role = models.CharField(
+    #     max_length=10,
+    #     choices=ROLE_CHOICES,
+    #     default="viewer",
+    # )
+
+    title = models.CharField(max_length=100, null=False, blank=False)
+    description = models.TextField()
+    author_name = models.CharField(max_length=50, blank=False, null=False)
+    publication_date = models.DateField()
+
+    class Meta:
+        permissions = [
+            ("can_view", "can view a book"),
+            ("can_create", "can create a book"),
+            ("can_edit", "can edit a book"),
+            ("can_delete", "can delete a book"),
+        ]

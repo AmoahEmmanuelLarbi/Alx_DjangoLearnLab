@@ -54,14 +54,14 @@ class Librarian(models.Model):
 
 
 # Create a UserProfile model that includes a role field with predefined roles.
-class UserProfile(models.Model):
-    USER_ROLES = {
-        "A": "Admin",
-        "L": "Librarian",
-        "M": "Member",
-    }
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=1, choices=USER_ROLES)
+# class UserProfile(models.Model):
+#     USER_ROLES = {
+#         "A": "Admin",
+#         "L": "Librarian",
+#         "M": "Member",
+#     }
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     role = models.CharField(max_length=1, choices=USER_ROLES)
 
-    def __str__(self):
-        return self.user
+#     def __str__(self):
+#         return self.user
