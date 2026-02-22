@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-bije6$#-=j^#@e!_=ud*czp-&f(5l2hjl98rrga7rz#28#zle8"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -133,9 +133,19 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 AUTH_USER_MODEL = "bookshelf.CustomUser"
 
-# new (configure secure settings)
+# new (configure secure settings) # secure header
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = "DENY"
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
+
+# secure cookies
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+
+# configure https support
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
