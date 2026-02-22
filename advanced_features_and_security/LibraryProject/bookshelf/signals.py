@@ -36,12 +36,12 @@ def create_role(sender, **kwargs):
     viewers.permissions.set(permissions.filter(codename="can_view"))
 
 
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def assign_user_to_group(sender, instance, created, **kwargs):
-    if created:
-        group = Group.objects.filter(
-            name__iexact=instance.role.capitalize() + "s"
-        ).first()
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def assign_user_to_group(sender, instance, created, **kwargs):
+#     if created:
+#         group = Group.objects.filter(
+#             name__iexact=instance.role.capitalize() + "s"
+#         ).first()
 
-        if group:
-            instance.groups.add(group)
+#         if group:
+#             instance.groups.add(group)
