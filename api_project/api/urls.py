@@ -1,5 +1,7 @@
 from django.urls import path, include
 from .views import BookViewSet, BookList
+
+# UserLoginApiView
 from rest_framework.routers import DefaultRouter
 
 
@@ -14,5 +16,6 @@ urlpatterns = [
     path(
         "", include(router.urls)
     ),  # Include the router URLs for BookViewSet (all CRUD operations)
+    # path("auth-login/", UserLoginApiView.as_view()),
     path("books/", BookList.as_view(), name="book-list"),  # maps to the BookList View
 ]
