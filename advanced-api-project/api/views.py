@@ -21,27 +21,28 @@ class AuthorViewSet(ModelViewSet):
 # using generic views
 class BookListView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
-    # queryset = Book.objects.all()
+    queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filterset_fields = ["title"]
 
-    def get_queryset(self):
-        title = self.request.query_params.get("title")
-        author = self.request.query_params.get("author")
-        publication_year = self.request.query_params.get("publication_year")
+    # def get_queryset(self):
+    #     title = self.request.query_params.get("title")
+    #     author = self.request.query_params.get("author")
+    #     publication_year = self.request.query_params.get("publication_year")
 
-        if title:
-            return Book.objects.filter(title__icontains=title)
+    #     if title:
+    #         return Book.objects.filter(title__icontains=title)
 
-        if author:
-            return Book.objects.filter(author__iexact=author)
+    #     if author:
+    #         return Book.objects.filter(author__iexact=author)
 
-        if publication_year:
-            return Book.objects.filter(publication_year=publication_year)
-        return Book.objects.all()
+    #     if publication_year:
+    #         return Book.objects.filter(publication_year=publication_year)
+    #     return Book.objects.all()
 
     # implement search functionality
-    filter_backends = [SearchFilter]
-    search_fields = ["title"]
+    # filter_backends = [SearchFilter]
+    # search_fields = ["title"]
 
 
 class BookDetailView(generics.RetrieveAPIView):
