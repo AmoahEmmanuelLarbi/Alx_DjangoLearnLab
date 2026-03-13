@@ -1,6 +1,12 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from rest_framework import generics
+from rest_framework.generics import (
+    CreateAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
+)
 from .models import Book, Author
 from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -18,19 +24,19 @@ class AuthorViewSet(ModelViewSet):
 
 
 # using generic views
-class BookListView(generics.ListAPIView):
+class BookListView(ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
-class BookDetailView(generics.RetrieveAPIView):
+class BookDetailView(RetrieveAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
-class BookCreaeteView(generics.CreateAPIView):
+class BookCreaeteView(CreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -40,11 +46,11 @@ class BookCreaeteView(generics.CreateAPIView):
     #     serializer.save(author=self.request.user)
 
 
-class BookUpdateView(generics.UpdateAPIView):
+class BookUpdateView(UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
-class BookDeleteView(generics.DestroyAPIView):
+class BookDeleteView(DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
