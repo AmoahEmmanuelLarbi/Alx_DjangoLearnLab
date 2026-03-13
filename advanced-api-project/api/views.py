@@ -24,13 +24,13 @@ class AuthorViewSet(ModelViewSet):
 
 
 # using generic views
-class BookListView(ListAPIView):
+class ListView(ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
-class BookDetailView(RetrieveAPIView):
+class DetailView(RetrieveAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -46,11 +46,11 @@ class CreateView(CreateAPIView):
     #     serializer.save(author=self.request.user)
 
 
-class BookUpdateView(UpdateAPIView):
+class UpdateView(UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
-class BookDeleteView(DestroyAPIView):
+class DeleteView(DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
