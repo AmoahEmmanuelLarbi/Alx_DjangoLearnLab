@@ -9,7 +9,7 @@ from rest_framework.generics import (
 )
 from .models import Book, Author
 from .serializers import AuthorSerializer, BookSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 
 # Create your views here.
@@ -37,7 +37,7 @@ class DetailView(RetrieveAPIView):
 
 
 class CreateView(CreateAPIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
@@ -47,10 +47,12 @@ class CreateView(CreateAPIView):
 
 
 class UpdateView(UpdateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
 class DeleteView(DestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
