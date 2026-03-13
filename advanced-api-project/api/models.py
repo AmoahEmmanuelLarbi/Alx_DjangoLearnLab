@@ -10,5 +10,5 @@ class Author(models.Model):
 # Book model
 class Book(models.Model):
     title = models.CharField(max_length=100, null=False, verbose_name="Title")
-    publication_year = models.DateField(auto_now=True)
+    publication_year = models.DateField(null=False)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
