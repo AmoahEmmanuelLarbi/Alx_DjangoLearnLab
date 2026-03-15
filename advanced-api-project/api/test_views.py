@@ -28,7 +28,7 @@ class BookAPITestCase(APITestCase):
 
         self.list_url = reverse("books")
         self.create_url = reverse("book-create")
-        self.detail_url = reverse("book-update", args=[self.book.pk])
+        self.update_url = reverse("book-update", args=[self.book.pk])
         self.delete_url = reverse("book-delete", args=[self.book.pk])
 
     # test to get data
@@ -37,7 +37,7 @@ class BookAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         print(response.data)
 
-    # test to create book
+    # test to ensure unathorized user cannot create book
     def test_unauthorized_create_book(self):
         data = {
             "title": "System Design Architecture",
@@ -45,12 +45,14 @@ class BookAPITestCase(APITestCase):
             "author": "1",
         }
         response = self.client.post(self.create_url, data)
-        print("Returned status code:", response.status_code)
-        # self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        print(response.data)
+        print("Test: UnAuthorized creating of book")
+        # print("Returned status code:", response.status_code)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        # print(response.data)
 
     # test if authorized user can create a book
     def test_authorized_create_book(self):
+        # self.client.login(username="james", password="james@admin12")
         self.client.force_authenticate(self.user)
         data = {
             "title": "Django ORM",
@@ -58,27 +60,40 @@ class BookAPITestCase(APITestCase):
             "author": self.author.pk,
         }
         # print(user)
+        print("Test: Authorized creating of book")
         response = self.client.post(self.create_url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        print(
-            f"Response code from authorized user: {response.status_code}, Data sent to server: {response.data}"
-        )
+        # print(
+        #     f"Response code from authorized user: {response.status_code}, Data sent to server: {response.data}"
+        # )
 
-    # # test to update book
-    def test_update_book(self):
+    # # test to update book by authorized user
+    def test_authorized_update_book(self):
         data = {
             "title": "The Django Playbook",
-            "publication_year": "2025-1-1",
+            "publication_year": "2020-01-10",
             "author": "1",
         }
-        response = self.client.put(self.detail_url, data)
+        self.client.force_authenticate(self.user)
+        # self.client.force_login(self.user)
+        response = self.client.put(self.update_url, data)
         print("Response code:", response.status_code)
         print("Data:", response.data)
         print("Methods Allowed:", response.headers["Allow"])
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    # test to updated book by unauthorized user
+    def test_unauthorized_update_book(self):
+        data = {
+            "title": "Version Control with Git",
+            "publication_year": "2024-01-10",
+            "author": self.author.pk,
+        }
+        response = self.client.put(self.update_url, data)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
     # # test to delete book
-    # def test_delete_book(self):
-    #     response = self.client.delete(self.delete_url)
-    #     print("Methods Allowed for delete:", response.headers["Allow"])
-    #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    def test_unauthorized_delete_book(self):
+        response = self.client.delete(self.delete_url)
+        # print("Methods Allowed for delete:", response.headers["Allow"])
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
