@@ -7,12 +7,12 @@ from django.utils import timezone
 class BookSerializer(serializers.ModelSerializer):
 
     # custom fiel
-    date_since_published = serializers.SerializerMethodField()
+    years_since_published = serializers.SerializerMethodField()
 
     class Meta:
         model = Book
-        fields = ["title", "publication_year", "author","date_since_published"]
-        read_only_fields = ["date_since_published"]
+        fields = ["title", "publication_year", "author", "years_since_published"]
+        read_only_fields = ["years_since_published"]
 
     # validate book
     def validate_title(self, value):
@@ -31,7 +31,7 @@ class BookSerializer(serializers.ModelSerializer):
         return data
 
     # get value of custom field
-    def get_date_since_published(self, obj):
+    def get_years_since_published(self, obj):
         current_year = timezone.now().year
         years = current_year - obj.publication_year.year
         return years

@@ -5,7 +5,7 @@ from .models import Book, Author
 from .serializers import AuthorSerializer, BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import filters
-from django_filters import rest_framework
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 # Create your views here.
@@ -24,8 +24,9 @@ class BookListView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    # implement search functionality
     filter_backends = [
-        rest_framework.DjangoFilterBackend,
+        DjangoFilterBackend,
         filters.OrderingFilter,
         filters.SearchFilter,
     ]
@@ -54,7 +55,7 @@ class BookListView(generics.ListAPIView):
 
 
 class BookDetailView(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
@@ -70,12 +71,12 @@ class BookCreateView(generics.CreateAPIView):
 
 
 class BookUpdateView(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
 
 class BookDeleteView(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
