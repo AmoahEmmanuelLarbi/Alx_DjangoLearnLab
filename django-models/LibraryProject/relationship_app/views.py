@@ -144,6 +144,8 @@ def createBook(request):
 @permission_required("relationship_app.can_change_book")
 def editBook(request, pk):
     book = get_object_or_404(Book, pk=pk)
+    
+    
 
     if request.method == "POST":
         form = BookForm(request.POST, instance=book)  # current book info

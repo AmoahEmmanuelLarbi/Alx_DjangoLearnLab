@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic import (
     CreateView,
     TemplateView,
@@ -10,7 +10,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, ProfileEditForm, PostFrom
+from .forms import SignUpForm, ProfileEditForm, PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
 from .models import Post
@@ -64,7 +64,7 @@ class PostListView(ListView):
 
 # create a new post
 class PostCreateView(LoginRequiredMixin, CreateView):
-    form_class = PostFrom
+    form_class = PostForm
     template_name = "blog/post_create.html"
     success_url = reverse_lazy("posts")
 
@@ -83,6 +83,32 @@ class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
+
+
+# function-based view to allow only authenticated users to update their post
+def PostUpdateByOwner(request, pk):
+    post = get_object_or_404(Post, pk=pk)  # get Post by pk
+
+    # check if curretn user is the owner post
+    # is_owner = request.user.is_authenticated and post.author == request.user
+    # print(is_owner)
+
+    # if not is_owner:
+    #     return HttpResponseForbidden("Not allowed")
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        # validate data
+        if form.is_valid():
+            form.save()
+            return redirect("posts")
+    else:
+        form = PostForm(instance=post)
+    return render(
+        request,
+        "blog/post_update.html",
+        {"form": form},
+    )
 
 
 # view to update post

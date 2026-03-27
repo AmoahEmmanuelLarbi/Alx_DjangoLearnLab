@@ -13,7 +13,7 @@ class SignUpForm(UserCreationForm):
         fields = ("username", "email")
 
 
-class PostFrom(forms.ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = (
