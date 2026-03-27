@@ -26,7 +26,7 @@ def hellopage(request):
 class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy("login")  # redirection page
-    template_name = "registration/signup.html"
+    template_name = "registration/register.html"
 
 
 # view for profile management
