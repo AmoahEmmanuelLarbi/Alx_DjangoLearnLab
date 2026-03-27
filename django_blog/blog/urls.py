@@ -20,7 +20,7 @@ urlpatterns = [
     path("home/", TemplateView.as_view(template_name="home.html"), name="home"),
     # urls for profile management
     # user signup
-    path("signup/", SignUpView.as_view(), name="signup"),
+    path("register/", SignUpView.as_view(), name="signup"),
     # user login and logout
     path("login/", auth_view.LoginView.as_view(), name="login"),
     path(
