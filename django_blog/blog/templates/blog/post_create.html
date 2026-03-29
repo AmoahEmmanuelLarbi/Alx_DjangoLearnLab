@@ -1,11 +1,19 @@
-{% extends "base.html" %}
+{% extends "blog\base.html" %}
 {% block content %}
-    <p>Create a new post</p>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">CREATE A POST</button>
-    </form>
+
+<h2>
+    {% if form.instance.pk %}
+    Edit Post
+    {% else %}
+    Create Post
+    {% endif %}
+</h2>
+<!--<p>Create a new post</p> -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">SAVE POST</button>
+</form>
 
 
 {% endblock %}

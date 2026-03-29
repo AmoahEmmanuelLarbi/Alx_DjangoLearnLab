@@ -18,15 +18,19 @@ from .views import (
 
 urlpatterns = [
     # path("", hellopage, name="hello"),
-    path("home/", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("home/", TemplateView.as_view(template_name="blog/home.html"), name="home"),
     # urls for profile management
     # user signup
-    path("register/", SignUpView.as_view(), name="signup"),
+    path("register/", SignUpView.as_view(), name="register"),
     # user login and logout
-    path("login/", auth_view.LoginView.as_view(), name="login"),
+    path(
+        "login/",
+        auth_view.LoginView.as_view(template_name="blog/login.html"),
+        name="login",
+    ),
     path(
         "logout/",
-        auth_view.LogoutView.as_view(template_name="registration/logout.html"),
+        auth_view.LogoutView.as_view(template_name="blog/logout.html"),
         name="logout",
     ),
     # user profile management
@@ -44,7 +48,7 @@ urlpatterns = [
     path(
         "password_change/done/",
         auth_view.PasswordChangeDoneView.as_view(
-            template_name="registration\password_change_done.html"
+            template_name="registration/password_change_done.html"
         ),
         name="password_change_done",
     ),

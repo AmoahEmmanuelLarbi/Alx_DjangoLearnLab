@@ -26,7 +26,7 @@ def hellopage(request):
 class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy("login")  # redirection page
-    template_name = "registration/register.html"
+    template_name = "account/register.html"
 
 
 # view for profile management
@@ -49,7 +49,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 # list all post
 class PostListView(ListView):
     model = Post
-    template_name = "blog/post_list"
+    template_name = "blog/post_list.html"
     queryset = Post.objects.all()
 
     # add extra context
@@ -106,7 +106,7 @@ def PostUpdateByOwner(request, pk):
         form = PostForm(instance=post)
     return render(
         request,
-        "blog/post_update.html",
+        "blog/post_create.html",
         {"form": form},
     )
 
@@ -115,7 +115,7 @@ def PostUpdateByOwner(request, pk):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ["title", "content"]
-    template_name = "blog/post_update.html"
+    template_name = "blog/post_create.html"
     success_url = reverse_lazy("posts")
 
     # only authors of post can edit the post
@@ -129,7 +129,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = reverse_lazy("posts")
-    template_name = "blog/post_delete_confirm.html"
+    template_name = "blog/post_confirm_delete.html"
     context_object_name = "post"
 
     # only authors of post can edit the post

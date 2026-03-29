@@ -141,7 +141,7 @@ AUTH_USER_MODEL = "blog.CustomUser"
 
 
 # login redirect
-LOGIN_URL = "/blog/login/" #redirect unauthenticated user to login path in app_level url(blog.urls)
+LOGIN_URL = "/blog/login/"  # redirect unauthenticated user to login path in app_level url(blog.urls)
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
