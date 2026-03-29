@@ -26,7 +26,7 @@ def hellopage(request):
 class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy("login")  # redirection page
-    template_name = "registration/register.html"
+    template_name = "account/register.html"
 
 
 # view for profile management
@@ -49,7 +49,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 # list all post
 class PostListView(ListView):
     model = Post
-    template_name = "blog/post_list"
+    template_name = "blog\post_list.html"
     queryset = Post.objects.all()
 
     # add extra context
