@@ -13,6 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm, ProfileEditForm, PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Post
 
 
@@ -86,15 +87,16 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
 
 # function-based view to allow only authenticated users to update their post
+@login_required
 def PostUpdateByOwner(request, pk):
-    post = get_object_or_404(Post, pk=pk)  # get Post by pk
+    post = get_object_or_404(Post, pk=pk, author=request.user)  # get Post by pk
 
     # check if curretn user is the owner post
     # is_owner = request.user.is_authenticated and post.author == request.user
     # print(is_owner)
 
-    # if not is_owner:
-    #     return HttpResponseForbidden("Not allowed")
+    if not post:
+        return HttpResponseForbidden("Not allowed")
 
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
