@@ -13,6 +13,11 @@ from .views import (
     PostUpdateView,
     PostDeleteView,
     PostUpdateByOwner,
+    post_comments,
+    create_comment,
+    CommentUpdateView,
+    CommentDeleteView,
+    show_all_post,
 )
 
 
@@ -40,7 +45,7 @@ urlpatterns = [
     path(
         "password_change/",
         auth_view.PasswordChangeView.as_view(
-            template_name="registration\password_change_form.html",
+            template_name="account/password_change_form.html",
             success_url=reverse_lazy("password_change_done"),
         ),
         name="password_change",
@@ -48,7 +53,7 @@ urlpatterns = [
     path(
         "password_change/done/",
         auth_view.PasswordChangeDoneView.as_view(
-            template_name="registration/password_change_done.html"
+            template_name="account/password_change_done.html"
         ),
         name="password_change_done",
     ),
@@ -56,7 +61,7 @@ urlpatterns = [
     path(
         "password_reset/",
         auth_view.PasswordResetView.as_view(
-            template_name="registration/password_reset_form.html",
+            template_name="account/password_reset_form.html",
             success_url=reverse_lazy("password_reset_done"),
         ),
         name="password_reset",
@@ -64,14 +69,14 @@ urlpatterns = [
     path(
         "password_reset/done/",
         auth_view.PasswordResetDoneView.as_view(
-            template_name="registration/password_reset_done.html"
+            template_name="account/password_reset_done.html"
         ),
         name="password_reset_done",
     ),
     path(
         "reset/<uidb64>/<token>/",
         auth_view.PasswordResetConfirmView.as_view(
-            template_name="registration/password_reset_confirm.html",
+            template_name="account/password_reset_confirm.html",
             success_url=reverse_lazy("password_reset_complete"),
         ),
         name="password_reset_confirm",
@@ -79,14 +84,21 @@ urlpatterns = [
     path(
         "reset/done/",
         auth_view.PasswordResetCompleteView.as_view(
-            template_name="registration/password_reset_complete.html"
+            template_name="account/password_reset_complete.html"
         ),
         name="password_reset_complete",
     ),
     # post CRUD urls
-    path("posts/", PostListView.as_view(), name="posts"),
+    path("posts/", show_all_post, name="posts"),
     path("post/new/", PostCreateView.as_view(), name="create"),
     path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path("post/<int:pk>/update/", PostUpdateByOwner, name="post-edit"),
     path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
+    # comment CRUD urls
+    path("posts/<int:pk>/comments/new/", post_comments, name="comments"),
+    path("comment/<int:pk>/new/", create_comment, name="create-comment"),
+    path("comment/<int:pk>/update/", CommentUpdateView.as_view(), name="comment-edit"),
+    path(
+        "comment/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment-delete"
+    ),
 ]

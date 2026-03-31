@@ -15,10 +15,11 @@
                     {{post.content}}
                 </div>
         <!-- only author can edit or delete post-->
-                {% if post.author == request.user %}
-                    <a href="{% url 'post-edit' post.pk %}">Edit Post</a> |
-                    <a href="{% url 'post-delete' post.pk%}">Delete Post</a>
-                {%endif%}
+        <!-- {% if post.author == request.user %}
+        <a href="{% url 'post-edit' post.pk %}">Edit Post</a> |
+        <a href="{% url 'post-delete' post.pk%}">Delete Post</a>
+        {%endif%} -->
+                <a href="{% url 'post-detail' post.pk %}">View Post</a>
             </div>
 
 
@@ -39,10 +40,60 @@
 
     <!--add link to create new blog -->
         <a href="{% url 'create' %}">Create New Blog</a>
-        <p class="total"> Toatl Post: {{total_posts}}</p>
+        <p class="total"> Total Post: {{total_posts}}</p>
     <!-- <p>Toatl Post: {{total_posts}}</p> -->
 
+        <hr><br><br>
+        <p class="total"> Total Post: {{total_obj}}</p>
+        <p class="total"> Total number of pages: {{number_of_obj}}</p>
+        <p class="total"> Page range: {{number_of_obj}}</p>
+        <p class="total"> Page Number: {{page_number}}</p>
+
+        <div class="pages">
+            <span>
+                {% if posts.has_previous %}
+                    <!-- start -->
+                     <a href="?page=1"> &laquo;</a>
+                    <a href="?page={{ posts.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span>
+                    Page {{ posts.number }} of {{posts.paginator.num_pages}}
+                </span>
+
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}">Next</a>
+                    <a href="?page={{ posts.paginator.num_pages }}"> &raquo; </a>
+
+                {% endif %}
+            </span>
+        </div>
+
+
     </div>
+
+
+    {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}">Previous</a>
+    {% else %}
+        <a>Previous</a>
+    {% endif %}
+
+    {% for i in posts.paginator.page_range %}
+    
+        {% if posts.number == i %}
+            <a href="#">{{ i }} </a>
+            
+        {% else %}
+            <a href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}">Next</a>
+    {% else %}
+        <a>Next</a>
+    {% endif %}
 
 
 {% endblock %}

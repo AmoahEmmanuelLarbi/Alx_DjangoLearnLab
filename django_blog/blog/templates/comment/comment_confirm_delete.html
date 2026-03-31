@@ -1,0 +1,27 @@
+{% extends "blog\base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h2>Delete Post</h2>
+
+            <p>
+                Are you sure you want to delete
+                <strong>"{{ comment.pk }}: Comment: {{comment.content}}"</strong>?
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="actions">
+                    <button type="submit" class="btn btn-delete">
+                        Yes, Delete
+                    </button>
+
+                    <a href="{% url 'comments' comment.pk %}" class="btn btn-cancel">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
