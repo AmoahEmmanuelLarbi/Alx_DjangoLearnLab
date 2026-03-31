@@ -15,10 +15,11 @@
                     {{post.content}}
                 </div>
         <!-- only author can edit or delete post-->
-                {% if post.author == request.user %}
-                    <a href="{% url 'post-edit' post.pk %}">Edit Post</a> |
-                    <a href="{% url 'post-delete' post.pk%}">Delete Post</a>
-                {%endif%}
+        <!-- {% if post.author == request.user %}
+        <a href="{% url 'post-edit' post.pk %}">Edit Post</a> |
+        <a href="{% url 'post-delete' post.pk%}">Delete Post</a>
+        {%endif%} -->
+                <a href="{% url 'post-detail' post.pk %}">View Post</a>
             </div>
 
 
