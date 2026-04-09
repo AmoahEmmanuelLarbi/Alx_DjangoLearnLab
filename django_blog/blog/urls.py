@@ -95,7 +95,7 @@ urlpatterns = [
     path("post/<int:pk>/update/", PostUpdateByOwner, name="post-edit"),
     path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
     # comment CRUD urls
-    path("posts/<int:pk>/comments/new/", post_comments, name="comments"),
+    path("post/<int:pk>/comments/new/", post_comments, name="comments"),
     path("comment/<int:pk>/new/", create_comment, name="create-comment"),
     path("comment/<int:pk>/update/", CommentUpdateView.as_view(), name="comment-edit"),
     path(
