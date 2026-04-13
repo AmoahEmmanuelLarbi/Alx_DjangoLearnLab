@@ -13,6 +13,12 @@
 
                 <div class="post-content">
                     {{post.content}}
+                    <br>
+                    <div class="tags">
+                        {% for tag in post.tags.all %}
+                            <span><small>Tags: {{tag.name}}</small></span>
+                        {% endfor %}
+                    </div>
                 </div>
         <!-- only author can edit or delete post-->
         <!-- {% if post.author == request.user %}
@@ -52,8 +58,8 @@
         <div class="pages">
             <span>
                 {% if posts.has_previous %}
-                    <!-- start -->
-                     <a href="?page=1"> &laquo;</a>
+            <!-- start -->
+                    <a href="?page=1"> &laquo;</a>
                     <a href="?page={{ posts.previous_page_number }}">Previous</a>
                 {% endif %}
 
@@ -80,10 +86,10 @@
     {% endif %}
 
     {% for i in posts.paginator.page_range %}
-    
+
         {% if posts.number == i %}
             <a href="#">{{ i }} </a>
-            
+
         {% else %}
             <a href="?page={{ i }}">{{ i }}</a>
         {% endif %}

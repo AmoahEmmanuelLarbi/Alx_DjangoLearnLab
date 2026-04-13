@@ -1,7 +1,7 @@
 {% extends "blog\base.html" %}
 
 {% block content %}
-<<<<<<< HEAD
+    <<<<<<< HEAD
     <div class="container">
         <div class="card">
             <h2>Delete Post</h2>
@@ -25,29 +25,29 @@
             </form>
         </div>
     </div>
-=======
-<div class="container">
-    <div class="card">
-        <h2>Delete Post</h2>
+    =======
+    <div class="container">
+        <div class="card">
+            <h2>Delete Post</h2>
 
-        <p>
-            Are you sure you want to delete
-            <strong>"{{ comment.pk }}: Comment: {{comment.content}}"</strong>?
-        </p>
+            <p>
+                Are you sure you want to delete
+                <strong>"{{ comment.pk }}: Comment: {{comment.content}}"</strong>?
+            </p>
 
-        <form method="post">
-            {% csrf_token %}
-            <div class="actions">
-                <button type="submit" class="btn btn-delete">
-                    Yes, Delete
-                </button>
+            <form method="post">
+                {% csrf_token %}
+                <div class="actions">
+                    <button type="submit" class="btn btn-delete">
+                        Yes, Delete
+                    </button>
 
-                <a href="{% url 'comments' comment.pk %}" class="btn btn-cancel">
-                    Cancel
-                </a>
-            </div>
-        </form>
+                    <a href="{% url 'comments' comment.pk %}" class="btn btn-cancel">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
->>>>>>> 5c6b43f28911a164484a01ca081dcf2211a98126
+    >>>>>>> 5c6b43f28911a164484a01ca081dcf2211a98126
 {% endblock %}
