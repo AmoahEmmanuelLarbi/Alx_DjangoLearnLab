@@ -15,6 +15,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Post, Comment
+from django.db.models import Q
+from taggit.models import Tag
 
 # implement pagination
 from django.core.paginator import Paginator
@@ -58,11 +60,16 @@ class PostListView(ListView):
     def get_queryset(self):
         queryset = Post.objects.all()
 
+        # Implement a search feature that allows users to search for posts based on the title, content, or tags.
+        title = self.request.GET.get("title")
         author = self.request.GET.get("author")
-        print(f"Username: {author}")
+        content = self.request.GET.get("content")
+        # print(f"Username: {author}")
 
         if author:
             queryset = queryset.filter(author__username=author)
+        if title:
+            queryset = queryset.filter(title__startswith="A")
 
         return queryset
 
@@ -194,7 +201,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         # comment = form.save(commit=False)
         form.instance.author = self.request.user
-        form.instance.post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs["pk"])
         return super().form_valid(form)
 
 
@@ -237,6 +244,21 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
 def show_all_post(request):
     posts = Post.objects.all()
 
+    title = request.GET.get("query")
+    # author = request.GET.get("author")
+    content = request.GET.get("query")
+    tags = request.GET.get("query")
+    # print(f"Username: {author}")
+
+    # if author:
+    #     posts = posts.filter(author__username=author)
+    if title or content:
+        posts = posts.filter(
+            Q(title__icontains=title)
+            | Q(content__icontains=content)
+            | Q(tags__name__icontains=tags)
+        ).distinct()
+
     paginator = Paginator(object_list=posts, per_page=5)
     print(paginator.num_pages)
     total_obj = paginator.count
@@ -247,13 +269,40 @@ def show_all_post(request):
     page_obj = paginator.get_page(page_num)
     page_number = page_obj.number
 
-
     context = {
         "posts": page_obj,
         "total_obj": total_obj,
         "number_of_obj": number_of_obj_per_page,
         "page_range": page_range,
-        "page_number": page_number
+        "page_number": page_number,
     }
 
     return render(request, "blog/post_list.html", context)
+
+
+# view to show tagged post
+class TagView(ListView):
+    model = Post
+    paginate_by = 10
+    template_name = "blog/tag_list.html"
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        print(f"Kwargs: {self.kwargs}")
+        tag_name = self.kwargs.get("tag_name")
+        # tag_slug = self.kwargs.get("tag_slug")
+        print(f"Tag slug: {self.kwargs.get('tag_slug')}")
+        # queryset = Post.objects.filter(tags__name__iexact=tag_name).distinct()
+        queryset = Post.objects.filter(tags__slug__iexact=tag_name).distinct()
+        print(queryset.query)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # context["tag_slug"] = self.kwargs.get("tag_slug")
+        # tag_slug = self.kwargs.get('tag_slug')
+        tag_name = self.kwargs.get("tag_name")
+        context["tag"] = get_object_or_404(Tag, slug__iexact=tag_name)
+        return context

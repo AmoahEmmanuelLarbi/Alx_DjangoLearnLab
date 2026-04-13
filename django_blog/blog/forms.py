@@ -2,6 +2,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django import forms
 from .models import Post, Comment
+from taggit.forms import TagWidget
+
 
 # create SignUp form
 User = get_user_model()
@@ -16,7 +18,6 @@ class SignUpForm(UserCreationForm):
 
 # form to edit your profile
 class ProfileEditForm(forms.ModelForm):
-<<<<<<< HEAD
     class Meta:
         model = User
         fields = (
@@ -42,10 +43,10 @@ class ProfileEditForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = (
-            "title",
-            "content",
-        )
+        fields = ("title", "content", "tags")
+        widgets = {
+            "tags": TagWidget(),
+        }
 
     def clean_title(self):
         title = self.cleaned_data.get("title")
@@ -60,52 +61,21 @@ class PostForm(forms.ModelForm):
 
         return title
 
+    # def clean_tag(self):
+    #     tag = self.cleaned_data.get("tag")
 
-# comment form
-class CommentForm(forms.ModelForm):
-=======
->>>>>>> 5c6b43f28911a164484a01ca081dcf2211a98126
-    class Meta:
-        model = Comment
-        fields = ("content",)
+    #     # validate tag
+    #     if tag:
+    #         tag = tag.strip()
 
-<<<<<<< HEAD
-=======
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
+    #     if len(tag) < 5:
+    #         raise forms.ValidationError("Tag name cannot be less than 5 characters")
 
-        if email:
-            # normalize email
-            email = email.strip().lower()
+    #     # validate tag name not to contain a number
+    #     if any(char.isdigit() for char in tag):
+    #         raise forms.ValidationError("Tag name cannot contain a number")
 
-            # check if email already exists (excluding current user)
-            if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
-                raise forms.ValidationError("This email is already taken")
-
-        return email
-
-
-# post creation form
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = (
-            "title",
-            "content",
-        )
-
-    def clean_title(self):
-        title = self.cleaned_data.get("title")
-
-        # clean title
-        if title:
-            title = title.strip()
-
-        # check if title length of characters is less than 10
-        if len(title) < 10:
-            raise forms.ValidationError("Title of post cannot less than 10 characters")
-
-        return title
+    #     return tag
 
 
 # comment form
@@ -114,7 +84,6 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ("content",)
 
->>>>>>> 5c6b43f28911a164484a01ca081dcf2211a98126
     def clean_content(self):
         content = self.cleaned_data.get("content")
         # check if not content (comment is provided)
