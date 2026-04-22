@@ -162,6 +162,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 # views to handle CRUC operations for comments
+@login_required
 def post_comments(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = Comment.objects.filter(post=post)
@@ -172,6 +173,7 @@ def post_comments(request, pk):
 
 
 # create view for comments
+@login_required
 def create_comment(request, pk):
     # first get a post
     post = get_object_or_404(Post, pk=pk)
@@ -281,7 +283,7 @@ def show_all_post(request):
 
 
 # view to show tagged post
-class TagView(ListView):
+class TagView(LoginRequiredMixin, ListView):
     model = Post
     paginate_by = 10
     template_name = "blog/tag_list.html"
@@ -289,11 +291,11 @@ class TagView(ListView):
 
     def get_queryset(self):
         print(f"Kwargs: {self.kwargs}")
-        tag_name = self.kwargs.get("tag_name")
+        self.tag_name = self.kwargs.get("tag_name")
         # tag_slug = self.kwargs.get("tag_slug")
         print(f"Tag slug: {self.kwargs.get('tag_slug')}")
         # queryset = Post.objects.filter(tags__name__iexact=tag_name).distinct()
-        queryset = Post.objects.filter(tags__slug__iexact=tag_name).distinct()
+        queryset = Post.objects.filter(tags__name__iexact=self.tag_name).distinct()
         print(queryset.query)
 
         return queryset
@@ -303,6 +305,24 @@ class TagView(ListView):
 
         # context["tag_slug"] = self.kwargs.get("tag_slug")
         # tag_slug = self.kwargs.get('tag_slug')
-        tag_name = self.kwargs.get("tag_name")
-        context["tag"] = get_object_or_404(Tag, slug__iexact=tag_name)
+        # tag_name = self.kwargs.get("tag_name")
+        context["tag"] = get_object_or_404(Tag, slug__iexact=self.tag_name)
+        return context
+
+class PostByTagListView(LoginRequiredMixin ,ListView):
+    model = Post
+    paginate_by = 10
+    template_name = "blog/tag_list.html"
+    context_object_name = "posts"
+
+    def get_queryset(self):
+        self.tag_slug = self.kwargs.get('tag_slug')
+        queryset = Post.objects.filter(tags__slug__iexact=self.tag_slug).distinct()
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['tag'] = get_object_or_404(Tag, slug__iexact=self.tag_slug)
         return context

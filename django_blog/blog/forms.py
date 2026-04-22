@@ -5,6 +5,7 @@ from .models import Post, Comment
 from taggit.forms import TagWidget
 
 
+
 # create SignUp form
 User = get_user_model()
 
