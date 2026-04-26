@@ -25,7 +25,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 def hellopage(request):
 
-    return render(request, template_name="blog/login.html")
+    return render(request, template_name="blog/index.html")
 
 
 # creating view for new to signup
@@ -246,22 +246,32 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
 def show_all_post(request):
     posts = Post.objects.all()
 
-    title = request.GET.get("query")
-    # author = request.GET.get("author")
-    content = request.GET.get("query")
-    tags = request.GET.get("query")
-    # print(f"Username: {author}")
+    # get search query from imput
+    query = request.GET.get("query")
+    tag = request.GET.get("tag")
+    # title = request.GET.get("query")
+    # # author = request.GET.get("author")
+    # content = request.GET.get("query")
+    # tag = request.GET.get("query")
+    # # print(f"Username: {author}")
 
     # if author:
     #     posts = posts.filter(author__username=author)
-    if title or content:
+    if query:
         posts = posts.filter(
-            Q(title__icontains=title)
-            | Q(content__icontains=content)
-            | Q(tags__name__icontains=tags)
+            Q(title__icontains=query)
+            | Q(content__icontains=query)
+            # | Q(tags__name__icontains=query)
         ).distinct()
 
-    paginator = Paginator(object_list=posts, per_page=5)
+    if tag:
+        posts = posts.filter(tags__slug=tag)
+        
+    # get all tags and use for filtering
+    all_tags = Tag.objects.order_by("?")[:5]  # get 5 ramdom tags
+
+    # pagination
+    paginator = Paginator(object_list=posts, per_page=10)
     print(paginator.num_pages)
     total_obj = paginator.count
     number_of_obj_per_page = paginator.num_pages
@@ -277,6 +287,7 @@ def show_all_post(request):
         "number_of_obj": number_of_obj_per_page,
         "page_range": page_range,
         "page_number": page_number,
+        "random_tags": all_tags,
     }
 
     return render(request, "blog/post_list.html", context)
@@ -309,14 +320,15 @@ class TagView(LoginRequiredMixin, ListView):
         context["tag"] = get_object_or_404(Tag, slug__iexact=self.tag_name)
         return context
 
-class PostByTagListView(LoginRequiredMixin ,ListView):
+
+class PostByTagListView(LoginRequiredMixin, ListView):
     model = Post
     paginate_by = 10
     template_name = "blog/tag_list.html"
     context_object_name = "posts"
 
     def get_queryset(self):
-        self.tag_slug = self.kwargs.get('tag_slug')
+        self.tag_slug = self.kwargs.get("tag_slug")
         queryset = Post.objects.filter(tags__slug__iexact=self.tag_slug).distinct()
 
         return queryset
@@ -324,5 +336,5 @@ class PostByTagListView(LoginRequiredMixin ,ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['tag'] = get_object_or_404(Tag, slug__iexact=self.tag_slug)
+        context["tag"] = get_object_or_404(Tag, slug__iexact=self.tag_slug)
         return context

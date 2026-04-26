@@ -20,11 +20,13 @@ from .views import (
     show_all_post,
     TagView,
     PostByTagListView,
+    hellopage,
 )
 
 
 urlpatterns = [
     # path("", hellopage, name="hello"),
+    path("", hellopage, name="index"),
     path("home/", TemplateView.as_view(template_name="blog/home.html"), name="home"),
     # urls for profile management
     # user signup
@@ -92,7 +94,7 @@ urlpatterns = [
     ),
     # post CRUD urls
     path("posts/", show_all_post, name="posts"),
-    path("post/new/", PostCreateView.as_view(), name="create"),
+    path("post/new/", PostCreateView.as_view(), name="post-create"),
     path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path("post/<int:pk>/update/", PostUpdateByOwner, name="post-edit"),
     path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
