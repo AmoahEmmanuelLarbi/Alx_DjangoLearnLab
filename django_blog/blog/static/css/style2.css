@@ -9,21 +9,21 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:           #edf2fb;
-  --surface:      #ffffff;
-  --surface2:     #f4f7fd;
-  --accent:       #2563eb;
-  --accent-light: #dbeafe;
+  --bg:             #edf2fb;
+  --surface:        #ffffff;
+  --surface2:       #f4f7fd;
+  --accent:         #2563eb;
+  --accent-light:   #dbeafe;
   --text-primary:   #0f172a;
   --text-secondary: #475569;
   --text-muted:     #94a3b8;
-  --border:        #bcc4cf;
-  --radius:       18px;
-  --radius-sm:    10px;
-  --shadow:       0 2px 16px rgba(37,99,235,0.07);
-  --shadow-card:  0 4px 32px rgba(37,99,235,0.10);
-  --font-head:    'Sora', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
+  --border:         #bcc4cf;
+  --radius:         18px;
+  --radius-sm:      10px;
+  --shadow:         0 2px 16px rgba(37,99,235,0.07);
+  --shadow-card:    0 4px 32px rgba(37,99,235,0.10);
+  --font-head:      'Sora', sans-serif;
+  --font-body:      'DM Sans', sans-serif;
 }
 
 body {
@@ -66,10 +66,7 @@ nav {
   list-style: none;
 }
 
-.nav-links form {
-  margin: 0;
-}
-
+.nav-links form { margin: 0; }
 
 .nav-links a {
   font-size: 0.875rem;
@@ -85,9 +82,10 @@ nav {
   background: var(--accent-light);
   color: var(--accent);
 }
+
 .btn-logout {
-  background: #fee2e2;        /* light red */
-  color: #c21313;             /* red text */
+  background: #fee2e2;
+  color: #c21313;
   border: 1px solid #fecaca;
   border-radius: 8px;
   padding: 0.45rem 0.9rem;
@@ -101,20 +99,6 @@ nav {
   background: #f8c0c0;
   color: #bc1010;
 }
-
-
-/* .nav-links .btn-logout {
-  background: var(--accent);
-  color: #fff !important;
-  border-radius: 8px;
-  padding: 0.45rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: opacity 0.15s;
-}
-
-.nav-links .btn-logout:hover { opacity: 0.87; } */
 
 .nav-avatar {
   width: 34px; height: 34px;
@@ -132,10 +116,9 @@ main {
   flex: 1;
   padding: 2rem 1.5rem;
   width: 75%;
-  max-width: 1100px; /* optional cap so it doesn't stretch too much on big screens */
+  max-width: 1100px;
   margin: 0 auto;
 }
-
 
 footer {
   text-align: center;
@@ -144,7 +127,6 @@ footer {
   font-size: 1rem;
   border-top: 1px solid var(--border);
   background: var(--surface);
-  /* font-weight: bolder; */
 }
 
 /* ── Cards ────────────────────────────────────────────────── */
@@ -171,8 +153,11 @@ footer {
   margin-right: 5px;
 }
 
-.btn-primary, .btn-comment   { background: var(--accent); color: #fff; }
-.btn-primary, .btn-comment:hover { opacity: 0.88; }
+.btn-primary  { background: var(--accent); color: #fff; }
+.btn-primary:hover { opacity: 0.88; }
+
+.btn-comment  { background: var(--accent); color: #fff; }
+.btn-comment:hover { opacity: 0.88; }
 
 .btn-secondary { background: var(--accent-light); color: var(--accent); }
 .btn-secondary:hover { background: #bfdbfe; }
@@ -189,8 +174,17 @@ footer {
 
 .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.78rem; }
 
+.btn-full {
+  width: 100%;
+  margin-top: 0.85rem;
+  justify-content: center;
+  padding: 0.7rem;
+  align-items: center;
+  font-size: 1rem;
+}
+
 /* ── Forms ────────────────────────────────────────────────── */
-.form-group   { margin-bottom: 1.25rem; }
+.form-group { margin-bottom: 1.25rem; }
 
 .form-label {
   display: block;
@@ -215,27 +209,15 @@ footer {
   outline: none;
 }
 
-/* .auto-textarea {
-  resize: none;        /* disables manual drag resize */
-  /* overflow-y: hidden;  /* hides scrollbar until needed */
-  /* min-height: 120px;
-  max-height: 300px;
-}  */ 
-
-/* forgot_password */
-.forgot_pass {
-  direction: right;
-}
-
 .form-control:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
   background: var(--surface);
 }
 
-textarea.form-control { 
-  resize: none; 
-  min-height: 200px; 
+textarea.form-control {
+  resize: none;
+  min-height: 200px;
 }
 
 .form-error {
@@ -244,31 +226,39 @@ textarea.form-control {
   margin-top: 0.25rem;
 }
 
-/* ── Shared Form Card (posts & comments) ──────────────────── */
-/* .form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-} */
 
+
+/* ── Shared Form Card ─────────────────────────────────────── */
 .form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f9;
-    padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* min-height: 100vh; */
+  background-color: #f4f4f9;
+  padding: 20px;
 }
 
 .form-card {
-    width: 100%;
-    /*max-width: 400px;   /* 👈 makes it compact like login form */ 
-    padding: 25px;
-    border-radius: 12px;
+  width: 60%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
 }
 
-/* .form-card { max-width: 660px; margin: 0 auto; } */
+.form-card-post {
+  width: 70%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 25px;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
 .form-card.narrow { max-width: 560px; }
 
 .form-card-inner {
@@ -304,7 +294,7 @@ textarea.form-control {
   margin-top: 0.25rem;
 }
 
-.form-card-body   { padding: 1.75rem 2rem; }
+.form-card-body { padding: 1.75rem 2rem; }
 
 .form-card-footer {
   padding: 1rem 2rem;
@@ -313,17 +303,7 @@ textarea.form-control {
   display: flex; gap: 0.6rem;
 }
 
-/* ── Badges / Tags ────────────────────────────────────────── */
-/* .tag {
-  display: inline-block;
-  background: var(--accent-light);
-  color: var(--accent);
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0.2rem 0.6rem;
-  border-radius: 20px;
-} */
-
+/* ── Tags ─────────────────────────────────────────────────── */
 .tags {
   display: flex;
   gap: 0.5rem;
@@ -337,13 +317,11 @@ textarea.form-control {
   margin-right: 0.3rem;
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
-  border-radius: 100px; /*🔥 fully rounded */
-  
+  border-radius: 100px;
   background: var(--accent-light);
   color: var(--accent);
   text-decoration: none;
   font-weight: 500;
-
   transition: all 0.15s ease;
 }
 
@@ -352,11 +330,9 @@ textarea.form-control {
   color: #fff;
 }
 
-
-
-
 /* ── Page Header ──────────────────────────────────────────── */
-.page-header          { margin-bottom: 1.75rem; }
+.page-header { margin-bottom: 1.75rem; }
+
 .page-header h1 {
   font-family: var(--font-head);
   font-size: 1.6rem;
@@ -364,6 +340,7 @@ textarea.form-control {
   color: var(--text-primary);
   letter-spacing: -0.5px;
 }
+
 .page-header p {
   color: var(--text-secondary);
   font-size: 1rem;
@@ -378,6 +355,7 @@ textarea.form-control {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
 .alert-success { background: #dcfce7; color: #166534; }
 .alert-error   { background: #fee2e2; color: #dc2626; }
 .alert-info    { background: var(--accent-light); color: #1e40af; }
@@ -393,6 +371,7 @@ textarea.form-control {
   padding: 0.4rem 0.6rem 0.6rem 1rem;
   box-shadow: var(--shadow);
 }
+
 .search-bar input {
   border: none;
   background: transparent;
@@ -402,6 +381,7 @@ textarea.form-control {
   color: var(--text-primary);
   flex: 1;
 }
+
 .search-bar button {
   background: var(--accent);
   color: #fff;
@@ -424,16 +404,17 @@ textarea.form-control {
   align-items: center;
   gap: 0.4rem;
 }
+
 .breadcrumb a { color: var(--accent); text-decoration: none; }
 .breadcrumb a:hover { text-decoration: underline; }
 
-/* ── Accent top-stripe (reusable) ─────────────────────────── */
+/* ── Accent Top Stripe ────────────────────────────────────── */
 .stripe-top {
   position: relative;
   overflow: hidden;
 }
 
-/* ── Top Bar (flex row with title + action) ───────────────── */
+/* ── Top Bar ──────────────────────────────────────────────── */
 .top-bar {
   display: flex;
   align-items: center;
@@ -446,7 +427,7 @@ textarea.form-control {
 /* ── Category Pills ───────────────────────────────────────── */
 .category-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
 
-.pill{
+.pill {
   padding: 0.3rem 0.9rem;
   border-radius: 20px;
   font-size: 0.78rem;
@@ -458,12 +439,13 @@ textarea.form-control {
   transition: all 0.15s;
 }
 
-.pill a{
+.pill a {
   text-decoration: none;
   color: inherit;
 }
 
-.pill.active, .pill:hover{ color: var(--accent); background: #fff; border-color: var(--accent); }
+.pill.active,
+.pill:hover { color: var(--accent); background: #fff; border-color: var(--accent); }
 
 /* ── Section Label ────────────────────────────────────────── */
 .section-label {
@@ -543,11 +525,11 @@ textarea.form-control {
   color: var(--text-muted);
 }
 
-/* ── Post List Rows ───────────────────────────────────────── */
+/* ── Post List ────────────────────────────────────────────── */
 .posts-list, .post-detail, .comment-detail {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* clean spacing between posts */
+  gap: 1.5rem;
 }
 
 .post-item, .comment-item {
@@ -556,49 +538,33 @@ textarea.form-control {
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.post-item h2 {
-  margin-bottom: 0.3rem;
-}
+.post-item h2     { margin-bottom: 0.3rem; }
+.post-item .meta  { margin-bottom: 0.5rem; }
+.post-item .excerpt { margin-bottom: 0.6rem; }
 
-.post-item .meta {
-  margin-bottom: 0.5rem;
-}
-
-.post-item .excerpt {
-  margin-bottom: 0.6rem;
-}
-
+.post-content { margin-bottom: 0.3rem; }
 
 .post-footer {
-  margin-top: auto;   /* 🔥 pushes it to the bottom */
-  padding-top: 1rem;  /* space above buttons */
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .post-actions, .comment-actions {
   display: flex;
   gap: 0.5rem;
   margin-top: 0.8rem;
-
-  padding-left: 0.2rem; /* 👈 slight shift from extreme left */
+  padding-left: 0.2rem;
 }
 
-.post-content{
-  margin-bottom: 0.3rem;
-}
+/* ── Posts Grid ───────────────────────────────────────────── */
+/* .posts-grid { display: flex; flex-direction: column; gap: 0.9rem; } */
 
-
-
-
-
-.posts-grid { display: flex; flex-direction: column; gap: 0.9rem; }
-
-.post-card {
+/* .post-card {
   background: var(--surface);
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -610,8 +576,9 @@ textarea.form-control {
   transition: box-shadow 0.18s, transform 0.18s;
   text-decoration: none;
   color: inherit;
-}
-.post-card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
+} */
+
+/* .post-card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
 
 .post-card-icon {
   width: 48px; height: 48px;
@@ -633,9 +600,9 @@ textarea.form-control {
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 0.3rem;
-}
+} */
 
-.post-card-body .card-meta {
+/* .post-card-body .card-meta {
   font-size: 0.78rem;
   color: var(--text-muted);
   display: flex;
@@ -644,21 +611,19 @@ textarea.form-control {
   flex-wrap: wrap;
 }
 
-.post-card-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+.post-card-actions { display: flex; gap: 0.4rem; flex-shrink: 0; } */
 
-.pagination {
-  padding: 2rem 0.5rem;
-}
+.pagination { padding: 2rem 0.5rem; }
 
 /* ── Post Detail ──────────────────────────────────────────── */
-.post-detail-card {
+/* .post-detail-card {
   background: var(--surface);
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-card);
   overflow: hidden;
   margin-bottom: 1.5rem;
-}
+} */
 
 .post-detail-header { padding: 2rem 2rem 1.5rem; border-bottom: 1px solid var(--border); }
 
@@ -673,19 +638,23 @@ textarea.form-control {
 
 .author-row { display: flex; align-items: center; gap: 0.75rem; }
 
-.author-avatar {
-  width: 36px; height: 36px;
+/* Shared avatar style for author, comment, nav */
+.author-avatar, .comment-avatar, .nav-avatar {
   border-radius: 50%;
   background: var(--accent-light);
   color: var(--accent);
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.8rem; font-weight: 600;
+  font-weight: 600;
   font-family: var(--font-head);
   flex-shrink: 0;
 }
 
-.author-info .name  { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); }
-.author-info .date  { font-size: 0.78rem; color: var(--text-muted); }
+.author-avatar  { width: 36px; height: 36px; font-size: 0.8rem; }
+.comment-avatar { width: 30px; height: 30px; font-size: 0.72rem; }
+.nav-avatar     { width: 34px; height: 34px; font-size: 0.8rem; }
+
+.author-info .name { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); }
+.author-info .date { font-size: 0.78rem; color: var(--text-muted); }
 
 .post-tags { margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
@@ -704,12 +673,13 @@ textarea.form-control {
 }
 
 /* ── Comments ─────────────────────────────────────────────── */
-.comments-section   { margin-top: 0.5rem; }
+.comments-section { margin-top: 0.5rem; }
 
 .comments-header {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: 1rem;
 }
+
 .comments-header h2 {
   font-family: var(--font-head);
   font-size: 1.1rem;
@@ -725,21 +695,12 @@ textarea.form-control {
   margin-bottom: 2rem;
   transition: box-shadow 0.15s;
 }
+
 .comment-card:hover { box-shadow: var(--shadow-card); }
 
 .comment-top {
   display: flex; align-items: center; gap: 0.65rem;
   margin-bottom: 0.6rem;
-}
-
-.comment-avatar {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: var(--accent-light);
-  color: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.72rem; font-weight: 600;
-  flex-shrink: 0;
 }
 
 .comment-author { font-size: 0.85rem; font-weight: 500; }
@@ -757,7 +718,7 @@ textarea.form-control {
 }
 
 /* ── Profile ──────────────────────────────────────────────── */
-.profile-card{
+.profile-card {
   background: var(--surface);
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -791,7 +752,7 @@ textarea.form-control {
   box-shadow: 0 2px 8px rgba(37,99,235,0.18);
 }
 
-.profile-body    { padding: 2.5rem 2rem 1.75rem; }
+.profile-body { padding: 2.5rem 2rem 1.75rem; }
 
 .profile-name {
   font-family: var(--font-head);
@@ -800,7 +761,7 @@ textarea.form-control {
   margin-bottom: 0.2rem;
 }
 
-.profile-fields  { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.profile-fields { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.8rem; }
 
 .profile-field {
   display: flex;
@@ -833,8 +794,8 @@ textarea.form-control {
   display: flex; gap: 0.6rem;
 }
 
-/* ── Auth pages ───────────────────────────────────────────── */
-.auth-card, .form-container {
+/* ── Auth Pages ───────────────────────────────────────────── */
+.auth-card {
   background: var(--surface);
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -843,21 +804,14 @@ textarea.form-control {
   max-width: 420px;
   margin: 2rem auto;
 }
-/* .form-container {
-  background: var(--surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
-  max-width: 420px;
-  margin: 2rem auto;
-} */
 
 .auth-header {
   padding: 2rem 2rem 1.5rem;
   text-align: center;
   border-bottom: 1px solid var(--border);
 }
+
+.forgot_pass { text-align: right; }
 
 .auth-logo {
   font-family: var(--font-head);
@@ -880,10 +834,8 @@ textarea.form-control {
   font-size: 0.9rem;
   color: var(--text-secondary);
 }
-.auth-footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
-.auth-footer a:hover { text-decoration: none; }
 
-.btn-full { width: 100%; margin-top: 0.85rem; justify-content: center; padding: 0.7rem; align-items: center; font-size: 1rem;}
+.auth-footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
 
 /* ── Empty State ──────────────────────────────────────────── */
 .empty-state {
@@ -893,6 +845,7 @@ textarea.form-control {
   border-radius: var(--radius);
   border: 1px solid var(--border);
 }
+
 .empty-state .empty-icon { font-size: 2rem; margin-bottom: 0.5rem; }
 .empty-state p { color: var(--text-secondary); }
 
@@ -904,7 +857,7 @@ textarea.form-control {
 .flex  { display: flex; }
 .gap-1 { gap: 0.5rem; }
 .gap-2 { gap: 1rem; }
-.flex-wrap { flex-wrap: wrap; }
-.items-center { align-items: center; }
+.flex-wrap     { flex-wrap: wrap; }
+.items-center  { align-items: center; }
 .justify-between { justify-content: space-between; }
 hr.divider { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }

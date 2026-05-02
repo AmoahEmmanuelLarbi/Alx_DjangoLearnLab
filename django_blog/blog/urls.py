@@ -3,6 +3,7 @@ from django.urls import path
 from .views import hellopage
 from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_view
+from .forms import CustomPasswordChangeForm, CustomSetPasswordForm
 from .views import (
     SignUpView,
     ProfileView,
@@ -23,7 +24,6 @@ from .views import (
     hellopage,
 )
 
-
 urlpatterns = [
     # path("", hellopage, name="hello"),
     path("", hellopage, name="index"),
@@ -34,12 +34,12 @@ urlpatterns = [
     # user login and logout
     path(
         "login/",
-        auth_view.LoginView.as_view(template_name="blog/login.html"),
+        auth_view.LoginView.as_view(template_name="account/login.html"),
         name="login",
     ),
     path(
         "logout/",
-        auth_view.LogoutView.as_view(template_name="blog/logout.html"),
+        auth_view.LogoutView.as_view(template_name="account/logout.html"),
         name="logout",
     ),
     # user profile management
@@ -49,6 +49,7 @@ urlpatterns = [
     path(
         "password_change/",
         auth_view.PasswordChangeView.as_view(
+            form_class=CustomPasswordChangeForm,
             template_name="account/password_change_form.html",
             success_url=reverse_lazy("password_change_done"),
         ),
@@ -80,6 +81,7 @@ urlpatterns = [
     path(
         "reset/<uidb64>/<token>/",
         auth_view.PasswordResetConfirmView.as_view(
+            form_class=CustomSetPasswordForm,
             template_name="account/password_reset_confirm.html",
             success_url=reverse_lazy("password_reset_complete"),
         ),
@@ -105,9 +107,9 @@ urlpatterns = [
     path(
         "comment/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment-delete"
     ),
-    # tagging
     # search
     path("search/", show_all_post, name="search"),
+    # tagging
     path("tag/<str:tag_name>/", TagView.as_view(), name="tag_posts"),
     path("tags/<slug:tag_slug>/", PostByTagListView.as_view(), name="tag_posts"),
 ]

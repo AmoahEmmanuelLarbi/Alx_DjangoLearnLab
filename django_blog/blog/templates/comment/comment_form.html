@@ -1,19 +1,29 @@
-{% extends "blog\base.html" %}
+{% extends "blog/base.html" %}
 
 {% block content %}
-    <h2>
-        {% if form.instance.pk %}
-            Edit Comment for post: {{post.title}}
-        {% else %}
-            Create Comment for post: {{post.title}}
-        {% endif %}
-    </h2>
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">SAVE COMMENT</button>
-    </form>
+    <div class="form-container">
+    <!-- <div class="form-card"> -->
+        <h2 class="form-title">
+            {% if form.instance.pk %}
+                Edit Comment for post: {{post.title}}
+            {% else %}
+                Create Comment for post: {{post.title}}
+            {% endif %}
+        </h2>
+        <form method="post" class="form">
+            {% csrf_token %}
+            <div class="form-group">
 
+                <label class="form-label" for="content">Comment Content</label>
+                {{form.content}} <!-- render only the content -->
+
+            </div>
+            <button class="btn btn-primary btn-full" type="submit">SAVE COMMENT</button>
+        </form>
+    <!-- </div> -->
+
+
+    </div>
 
 
 {% endblock %}

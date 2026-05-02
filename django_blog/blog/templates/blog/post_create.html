@@ -1,19 +1,42 @@
-{% extends "blog\base.html" %}
+{% extends "blog/base.html" %}
+
 {% block content %}
+<div class="form-card-post">
+    <!-- <div class="form-card-inner"> -->
 
-    <h2>
-        {% if form.instance.pk %}
-            Edit Post
-        {% else %}
-            Create Post
-        {% endif %}
-    </h2>
-<!--<p>Create a new post</p> -->
-    <form method="post">
+    <!-- <div class="form-card-header"> -->
+    {% if form.instance.pk %}
+    Edit Post
+    {% else %}
+    Create Post
+    {% endif %}
+    <!-- </div> -->
+
+    <!-- <div class="form-card-body"> -->
+    <form method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">SAVE POST</button>
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}" class="form-label">
+                {{ field.label }}
+            </label>
+            {{ field }}
+
+            {% if field.errors %}
+            {% for error in field.errors %}
+            <div class="form-error">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">
+            Save Post
+        </button>
     </form>
+    <!-- </div> -->
 
+    <!-- </div> -->
 
+    <!-- </div> -->
+</div>
 {% endblock %}

@@ -2,12 +2,25 @@
 {% block title %} Edit User Profile {% endblock %}
 
 {% block content %}
-    <p>Edit your profile.</p>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Edit</button>
-    </form>
+
+    <div class="form-card">
+        <h2 class="form-title">Edit your profile.</h2>
+        <br>
+    <!-- <div class="auth-body"> -->
+        <form method="post" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+            <!-- {{ form.as_p }} -->
+                {{form.username}}
+
+            </div>
+
+            <button class="btn btn-primary" type="submit">Edit</button>
+        </form>
+    <!-- </div> -->
+
+    </div>
+
 
 
 {% endblock %}

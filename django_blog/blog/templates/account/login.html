@@ -11,7 +11,7 @@
     </div>
 
     <div class="auth-body">
-      <form method="POST">
+      <form method="post">
         {% csrf_token %}
         <div class="form-group">
           <label class="form-label" for="username">Username</label>
@@ -26,7 +26,11 @@
         {% if form.errors %}
           <div class="alert alert-error">Invalid username or password.</div>
         {% endif %}
-        <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+
+        <div class="forgot_pass">
+          <a href="{% url 'password_reset' %}">Forgot your password ?</a>
+        </div>
+        <button class="btn btn-primary btn-full" type="submit">Sign In</button>
       </form>
     </div>
 

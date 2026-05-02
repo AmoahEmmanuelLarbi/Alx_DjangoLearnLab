@@ -31,8 +31,8 @@ def hellopage(request):
 # creating view for new to signup
 class SignUpView(CreateView):
     form_class = SignUpForm
-    success_url = reverse_lazy("login")  # redirection page
     template_name = "account/register.html"
+    success_url = reverse_lazy("login")  # redirection page
 
 
 # view for profile management
@@ -161,7 +161,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return obj.author == self.request.user
 
 
-# views to handle CRUC operations for comments
+# views to handle CRUD operations for comments
 @login_required
 def post_comments(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -212,13 +212,19 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment
     form_class = CommentForm
     template_name = "comment/comment_form.html"
-    # success_url = reverse_lazy('comments')
+
+    # success_url = reverse_lazy("comments")
 
     # only authors of comment can edit the comment
     def test_func(self):
         obj = self.get_object()
         print(obj)
         return obj.author == self.request.user
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = self.object.post
+        return context
 
     def get_success_url(self):
         print(self.object.post.pk)
@@ -266,7 +272,7 @@ def show_all_post(request):
 
     if tag:
         posts = posts.filter(tags__slug=tag)
-        
+
     # get all tags and use for filtering
     all_tags = Tag.objects.order_by("?")[:5]  # get 5 ramdom tags
 

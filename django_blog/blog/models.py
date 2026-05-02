@@ -46,6 +46,9 @@ class Post(models.Model):
     # add tag
     tags = TaggableManager()
 
+    class Meta:
+        ordering = ["-published_date"]
+
     def __str__(self):
         return f"Post: {self.title}"
 
