@@ -24,11 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure--dg@!e@n@%lcfr5-wwo)!+@1@%o-okklqojs51$yq6jg1w8s@g"
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
@@ -41,7 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",  # whitenoise (static files hosting)
     "django.contrib.staticfiles",
+    # local
     "blog.apps.BlogConfig",
     # third party apps
     "taggit",
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # new (whitenoise middleware)
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -153,24 +155,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 # configuring static files
-# STATIC_URL = "static/"
-# STATICFILES_DIRRS = [
-#     BASE_DIR / "static",
-# ]
-
 # new configuration for static files
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+# static file hosting (storage)
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",  # new
+    },
+}
 
-
-# STATIC_URL = "static/"
-
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
 
 # custom user model
 AUTH_USER_MODEL = "blog.CustomUser"
