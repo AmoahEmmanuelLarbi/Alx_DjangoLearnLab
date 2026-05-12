@@ -2,17 +2,13 @@
 
 {% block content %}
 <div class="form-card-post">
-    <!-- <div class="form-card-inner"> -->
-
-    <!-- <div class="form-card-header"> -->
+    
     {% if form.instance.pk %}
     Edit Post
     {% else %}
     Create Post
     {% endif %}
-    <!-- </div> -->
-
-    <!-- <div class="form-card-body"> -->
+    
     <form method="post" class="form">
         {% csrf_token %}
         {% for field in form %}
@@ -33,10 +29,6 @@
             Save Post
         </button>
     </form>
-    <!-- </div> -->
 
-    <!-- </div> -->
-
-    <!-- </div> -->
 </div>
 {% endblock %}

@@ -1,0 +1,41 @@
+{% extends "blog/base.html" %}
+
+{% block title %} Comments {% endblock %}
+
+{% block content %}
+
+<h2>Comments for: {{ post.title }}</h2>
+
+<hr>
+
+{% if comments %}
+{% for comment in comments %}
+<div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+
+    <p><strong>{{ comment.author }}</strong></p>
+
+    <p>{{ comment.content }}</p>
+
+    <small>
+        Posted on: {{ comment.created_at }}
+    </small>
+    <small>
+        Updated on: {{ comment.updated_at }}
+    </small>
+    {% if request.user == comment.author %}
+    <a href="{% url 'comment-edit' comment.pk %}">Edit comment</a>
+    <a href="{% url 'comment-delete' comment.pk %}">Delete comment</a>
+    {% endif %}
+
+</div>
+{% endfor %}
+{% else %}
+<p>No comments yet. Be the first to comment!</p>
+{% endif %}
+
+<hr>
+<a href="{% url 'create-comment' post.pk %}">Comment</a><br>
+
+<a href="{% url 'posts' %}">← Back to Posts</a>
+
+{% endblock %}

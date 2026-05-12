@@ -1,7 +1,5 @@
 from django.urls import reverse_lazy
 from django.urls import path
-from .views import hellopage
-from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_view
 from .forms import CustomPasswordChangeForm, CustomSetPasswordForm
 from .views import (
@@ -9,25 +7,20 @@ from .views import (
     ProfileView,
     ProfileEditView,
     PostCreateView,
-    PostListView,
+    show_all_post,
     PostDetailView,
     PostUpdateView,
     PostDeleteView,
-    PostUpdateByOwner,
     post_comments,
     create_comment,
     CommentUpdateView,
     CommentDeleteView,
-    show_all_post,
-    TagView,
     PostByTagListView,
-    hellopage,
 )
 
 urlpatterns = [
-    # path("", hellopage, name="hello"),
-    path("", hellopage, name="index"),
-    path("home/", TemplateView.as_view(template_name="blog/home.html"), name="home"),
+    # show post
+    path("", show_all_post, name="posts"),
     # urls for profile management
     # user signup
     path("register/", SignUpView.as_view(), name="register"),
@@ -98,10 +91,10 @@ urlpatterns = [
     path("posts/", show_all_post, name="posts"),
     path("post/new/", PostCreateView.as_view(), name="post-create"),
     path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
-    path("post/<int:pk>/update/", PostUpdateByOwner, name="post-edit"),
+    path("post/<int:pk>/update/", PostUpdateView.as_view(), name="post-edit"),
     path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
     # comment CRUD urls
-    path("post/<int:pk>/comments/new/", post_comments, name="comments"),
+    path("post/<int:pk>/comments/", post_comments, name="comments"),
     path("comment/<int:pk>/new/", create_comment, name="create-comment"),
     path("comment/<int:pk>/update/", CommentUpdateView.as_view(), name="comment-edit"),
     path(
@@ -110,6 +103,5 @@ urlpatterns = [
     # search
     path("search/", show_all_post, name="search"),
     # tagging
-    path("tag/<str:tag_name>/", TagView.as_view(), name="tag_posts"),
     path("tags/<slug:tag_slug>/", PostByTagListView.as_view(), name="tag_posts"),
 ]

@@ -21,7 +21,6 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # print(self.fields.items())
         for field_name, field in self.fields.items():
             field.widget.attrs.update(
                 {"class": "form-control", "placeholder": field.label}
@@ -60,7 +59,6 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
         self.fields["new_password2"].label = "Confirm New Password"
         self.fields["new_password2"].widget.attrs["placeholder"] = "Confirm password"
-
 
 
 # Custom SetPasswordForm for password reset
@@ -124,7 +122,8 @@ class PostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # print(self.fields.items())
+        self.fields["tags"].required = False
+
         for field_name, field in self.fields.items():
             field.widget.attrs.update(
                 {"class": "form-control", "placeholder": field.label}
