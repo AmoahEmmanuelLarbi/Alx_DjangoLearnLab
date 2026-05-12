@@ -1,8 +1,5 @@
 __pycache__/
 .venv/
 .env
-/templates_demo/
-*copy*
 /static/
 /staticfiles/
-/test/
